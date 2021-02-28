@@ -4,6 +4,6 @@
     {
         public uint UserId { get; set; }
         public uint Id { get; set; }
-        public uint Title { get; set; }
+        public string Title { get; set; }
     }
 }
