@@ -1,33 +1,37 @@
-﻿using System.Diagnostics;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SampleGallery.Web.Models;
+using SampleGallery.Web.Interfaces;
 
 namespace SampleGallery.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IJsonPlaceholderReader _reader;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IJsonPlaceholderReader reader)
         {
-            _logger = logger;
+            _reader = reader;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? page, string albumTitle, string name)
         {
-            return View();
+            var response = await _reader.GetAlbumsViewModel(page ?? 1, albumTitle, name);
+
+            return View(response);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Photos(uint id)
         {
-            return View();
+            var response = await _reader.GetPhotosViewModel(id);
+
+            return View(response);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> User(uint id)
         {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+            var response = await _reader.GetUserViewModel(id);
+
+            return View(response);
         }
     }
 }
