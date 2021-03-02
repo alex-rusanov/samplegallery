@@ -30,13 +30,9 @@ namespace SampleGallery.Web.Readers
             else
             {
                 if (users.Exists(user => user.Name == name))
-                {
                     albumsByName.AddRange(await _service.GetAlbums(users.First(user => user.Name == name).Id));
-                }
                 else
-                {
                     return new AlbumsViewModel();
-                }
             }
 
             var albumsByTitle = string.IsNullOrEmpty(albumTitle)
@@ -75,18 +71,22 @@ namespace SampleGallery.Web.Readers
             };
         }
 
-        public async Task<PhotosViewModel> GetPhotosViewModel(uint albumId) =>
-            new PhotosViewModel
+        public async Task<PhotosViewModel> GetPhotosViewModel(uint albumId)
+        {
+            return new PhotosViewModel
             {
                 Album = await _service.GetAlbum(albumId),
                 Photos = await _service.GetPhotos(albumId)
             };
+        }
 
-        public async Task<UserViewModel> GetUserViewModel(uint userId) =>
-            new UserViewModel
+        public async Task<UserViewModel> GetUserViewModel(uint userId)
+        {
+            return new UserViewModel
             {
                 User = await _service.GetUser(userId),
                 Posts = await _service.GetPostsByUserId(userId)
             };
+        }
     }
 }

@@ -38,12 +38,12 @@ namespace SampleGallery.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action}/{id}");
+                    "default",
+                    "{controller=Home}/{action}/{id}");
 
                 endpoints.MapControllerRoute(
-                    name: "index",
-                    pattern: "{controller=Home}/{action=Index}/{albumTitle?}/{name?}");
+                    "index",
+                    "{controller=Home}/{action=Index}/{albumTitle?}/{name?}");
             });
         }
     }

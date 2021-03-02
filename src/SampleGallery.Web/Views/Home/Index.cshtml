@@ -5,80 +5,86 @@
 }
 
 <form asp-controller="Home" asp-action="Index">
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <input type="text" name="albumTitle" class="form-control" id="inputAlbumTitle" placeholder="Album title">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <input type="text" name="albumTitle" class="form-control" id="inputAlbumTitle" placeholder="Album title">
+        </div>
+        <div class="form-group col-md-6">
+            <input type="text" name="name" class="form-control" id="inputName" placeholder="User's name">
+        </div>
     </div>
-    <div class="form-group col-md-6">
-      <input type="text" name="name" class="form-control" id="inputName" placeholder="User's name">
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
 <hr class="mt-2 mb-3"/>
 
 @if (!Model.Albums.Any())
 {
-  <div class="alert alert-danger" role="alert">No albums found</div>
+    <div class="alert alert-danger" role="alert">No albums found</div>
 }
 else
 {
-  <div class="row">
+    <div class="row">
 
-    @foreach (var albumViewModel in Model.Albums)
-    {
-      <div class="col-sm-3 mb-3">
-        <div class="card">
-          <img class="card-img-top" src="@Url.Content(albumViewModel.Photo.ThumbnailUrl.AbsoluteUri)" alt="@albumViewModel.Album.Title">
-          <div class="card-body overflow-auto">
-            <h5 class="card-title">@Html.ActionLink(albumViewModel.Album.Title, "Photos", "Home", new { id = albumViewModel.Album.Id })</h5>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">@Html.ActionLink(albumViewModel.User.Name, "User", "Home", new { id = albumViewModel.User.Id })</li>
-            <li class="list-group-item">@albumViewModel.User.Email</li>
-            <li class="list-group-item">@albumViewModel.User.Phone</li>
-          </ul>
-          <div class="card-footer">
-            <p class="mb-0"><small class="text-muted">@albumViewModel.User.Address.Street, @albumViewModel.User.Address.Suite</small></p>
-            <p class="mb-0"><small class="text-muted">@albumViewModel.User.Address.City, @albumViewModel.User.Address.Zipcode</small></p>
-            <p class="mb-0"><small class="text-muted">@albumViewModel.User.Address.Geo.Latitude @albumViewModel.User.Address.Geo.Longitude</small></p>
-          </div>
-        </div>
-      </div>
-    }
+        @foreach (var albumViewModel in Model.Albums)
+        {
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top" src="@Url.Content(albumViewModel.Photo.ThumbnailUrl.AbsoluteUri)" alt="@albumViewModel.Album.Title">
+                    <div class="card-body overflow-auto">
+                        <h5 class="card-title">@Html.ActionLink(albumViewModel.Album.Title, "Photos", "Home", new {id = albumViewModel.Album.Id})</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">@Html.ActionLink(albumViewModel.User.Name, "User", "Home", new {id = albumViewModel.User.Id})</li>
+                        <li class="list-group-item">@albumViewModel.User.Email</li>
+                        <li class="list-group-item">@albumViewModel.User.Phone</li>
+                    </ul>
+                    <div class="card-footer">
+                        <p class="mb-0">
+                            <small class="text-muted">@albumViewModel.User.Address.Street, @albumViewModel.User.Address.Suite</small>
+                        </p>
+                        <p class="mb-0">
+                            <small class="text-muted">@albumViewModel.User.Address.City, @albumViewModel.User.Address.Zipcode</small>
+                        </p>
+                        <p class="mb-0">
+                            <small class="text-muted">@albumViewModel.User.Address.Geo.Latitude @albumViewModel.User.Address.Geo.Longitude</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
 
-  </div>
+    </div>
 }
 
 @if (Model.PageViewModel.HasPreviousPage || Model.PageViewModel.HasNextPage)
 {
-  <nav>
-    <ul class="pagination">
-      @if (Model.PageViewModel.HasPreviousPage)
-      {
-        <li class="page-item">
-          <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)">Previous</a>
-        </li>
-      }
-      else
-      {
-        <li class="page-item disabled">
-          <a class="page-link" href="#">Previous</a>
-        </li>
-      }
-      @if (Model.PageViewModel.HasNextPage)
-      {
-        <li class="page-item">
-          <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)">Next</a>
-        </li>
-      }
-      else
-      {
-        <li class="page-item disabled">
-          <a class="page-link" href="#">Next</a>
-        </li>
-      }
-    </ul>
-  </nav>
+    <nav>
+        <ul class="pagination">
+            @if (Model.PageViewModel.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)">Previous</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+            }
+            @if (Model.PageViewModel.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)">Next</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
 }

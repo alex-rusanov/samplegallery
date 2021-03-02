@@ -18,22 +18,40 @@ namespace SampleGallery.Web.Services
             _httpClient.BaseAddress = new Uri("https://jsonplaceholder.typicode.com/");
         }
 
-        public async Task<IEnumerable<Post>> GetPostsByUserId(uint userId) =>
-            await GetContent<IEnumerable<Post>>($"/users/{userId}/posts");
+        public async Task<IEnumerable<Post>> GetPostsByUserId(uint userId)
+        {
+            return await GetContent<IEnumerable<Post>>($"/users/{userId}/posts");
+        }
 
-        public async Task<IEnumerable<User>> GetUsers() => await GetContent<IEnumerable<User>>("/users");
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            return await GetContent<IEnumerable<User>>("/users");
+        }
 
-        public async Task<User> GetUser(uint userId) => await GetContent<User>($"/users/{userId}");
+        public async Task<User> GetUser(uint userId)
+        {
+            return await GetContent<User>($"/users/{userId}");
+        }
 
-        public async Task<IEnumerable<Album>> GetAlbums() => await GetContent<IEnumerable<Album>>("/albums");
+        public async Task<IEnumerable<Album>> GetAlbums()
+        {
+            return await GetContent<IEnumerable<Album>>("/albums");
+        }
 
-        public async Task<IEnumerable<Album>> GetAlbums(uint userId) =>
-            await GetContent<IEnumerable<Album>>($"/users/{userId}/albums");
+        public async Task<IEnumerable<Album>> GetAlbums(uint userId)
+        {
+            return await GetContent<IEnumerable<Album>>($"/users/{userId}/albums");
+        }
 
-        public async Task<Album> GetAlbum(uint albumId) => await GetContent<Album>($"/albums/{albumId}");
+        public async Task<Album> GetAlbum(uint albumId)
+        {
+            return await GetContent<Album>($"/albums/{albumId}");
+        }
 
-        public async Task<IEnumerable<Photo>> GetPhotos(uint albumId) =>
-            await GetContent<IEnumerable<Photo>>($"/albums/{albumId}/photos");
+        public async Task<IEnumerable<Photo>> GetPhotos(uint albumId)
+        {
+            return await GetContent<IEnumerable<Photo>>($"/albums/{albumId}/photos");
+        }
 
         private async Task<T> GetContent<T>(string relativeUrl)
         {
