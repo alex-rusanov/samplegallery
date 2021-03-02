@@ -1,0 +1,37 @@
+﻿@model SampleGallery.Web.ViewModels.PhotosViewModel
+
+@{
+    ViewData["Title"] = Model.Album.Title;
+}
+
+<h1 class="display-3 mb-5">@Model.Album.Title</h1>
+
+@if (!Model.Photos.Any())
+{
+    <div class="alert alert-primary" role="alert">The album is empty</div>
+}
+else
+{
+    <div class="row">
+
+    @foreach (var photo in Model.Photos)
+    {
+        <div class="col-sm-3 mb-3">
+            <div class="card">
+                <img class="card-img-top" src="@Url.Content(photo.ThumbnailUrl.AbsoluteUri)" alt="@photo.Title">
+                <div class="card-body">
+                    @if (string.IsNullOrEmpty(photo.Title))
+                    {
+                        <div class="card-text"><small class="text-muted">No title provided</small></div>
+                    }
+                    else
+                    {
+                        <div class="card-text">@photo.Title</div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    </div>
+}

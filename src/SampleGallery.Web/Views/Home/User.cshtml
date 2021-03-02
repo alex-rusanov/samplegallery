@@ -1,0 +1,70 @@
+﻿@model SampleGallery.Web.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = Model.User.Username;
+}
+
+<h1 class="display-4 mb-2">@Model.User.Name</h1>
+
+<table class="table table-sm">
+    <tbody>
+    <tr>
+        <th scope="row">Id</th>
+        <td>@Model.User.Id</td>
+    </tr>
+    <tr>
+        <th scope="row">Username</th>
+        <td>@Model.User.Username</td>
+    </tr>
+    <tr>
+        <th scope="row">Email</th>
+        <td><a href="mailto:@Url.Content(Model.User.Email)">@Model.User.Email</a></td>
+    </tr>
+    <tr>
+        <th scope="row">Address</th>
+        <td>
+            <p class="mb-0">@Model.User.Address.Street, @Model.User.Address.Suite</p>
+            <p class="mb-0">@Model.User.Address.City, @Model.User.Address.Zipcode</p>
+            <p class="mb-0">@Model.User.Address.Geo.Latitude @Model.User.Address.Geo.Longitude</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Phone</th>
+        <td><a href="tel:@Url.Content(Model.User.Phone)">@Model.User.Phone</a></td>
+    </tr>
+    <tr>
+        <th scope="row">Website</th>
+        <td><a href="http://@Model.User.Website">@Model.User.Website</a></td>
+    </tr>
+    <tr>
+        <th scope="row">Company</th>
+        <td>
+            <div class="row">
+                <div class="col-sm-2"><small class="text-muted">Name</small></div>
+                <p class="col-sm-3 mb-0">@Model.User.Company.Name</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"><small class="text-muted">Catch phrase</small></div>
+                <p class="col-sm-3 mb-0">@Model.User.Company.CatchPhrase</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"><small class="text-muted">Business strategy</small></div>
+                <p class="col-sm-3 mb-0">@Model.User.Company.BusinessStrategy</p>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h1 class="display-5 mb-2">Posts</h1>
+
+@foreach (var post in Model.Posts)
+{
+    <div class="card mb-3">
+        <div class="card-header"><small class="text-muted">#@post.Id</small></div>
+        <div class="card-body">
+            <h5 class="card-title">@post.Title</h5>
+            <p class="card-text">@post.Body</p>
+        </div>
+    </div>
+}
